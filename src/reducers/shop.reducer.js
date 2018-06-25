@@ -1,5 +1,5 @@
-import {GET_CART_ITEMS} from '../actions/cart.actions';
-import {GET_PRODUCT_LIST} from '../actions/products.action';
+import {GET_CART_ITEMS, REMOVE_FROM_CART, REMOVE_FROM_AVALAIBLE_IN_CART, ADD_TO_AVAILABLE_IN_CART} from '../actions/cart.actions';
+import {GET_PRODUCT_LIST, ADD_TO_CART} from '../actions/products.action';
 
 const initState = {
   inCart: [],
@@ -63,6 +63,34 @@ export default (state = initState, action) => {
       return state.inCart;
     case GET_PRODUCT_LIST:
       return state.products;
+    case  ADD_TO_CART:
+      return {
+        ...state,
+       inCart: [
+  
+          ...action.payload
+          
+       ]
+      };
+      case REMOVE_FROM_CART: 
+        return {
+          inCart: [
+            ...state.inCart
+          ],
+          products: [
+            ...action.newProducts,
+          ]
+        }
+        case ADD_TO_AVAILABLE_IN_CART:
+          return {
+            inCart: [...state.inCart],
+            products: [...action.newProducts]
+          }
+        case REMOVE_FROM_AVALAIBLE_IN_CART: 
+          return {
+            inCart: [...state.inCart],
+            products: [...action.newProducts]
+          }
     default:
       return state;
   }
